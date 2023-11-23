@@ -1,0 +1,16 @@
+from machine import Pin
+import time
+
+gpio_pin = Pin(20, Pin.OUT)
+
+
+def pulse(pin, high_time, low_time):
+    
+    gpio_pin.value(1)
+    time.sleep(0.5)
+    gpio_pin.value(0)
+    time.sleep(0.5)
+
+
+while True:
+    pulse(gpio_pin, 0.2, 0.2)
