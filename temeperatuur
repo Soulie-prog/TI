@@ -1,16 +1,40 @@
-import machine
+
+from machine import Pin
 import time
+
+# Use on-board led
+led = Pin(25, Pin.OUT)
 
 adcpin = 4
 sensor = machine.ADC(adcpin)
-  
+# Blink led to confirm succesful flashing
+for _ in range(5):
+    led(0)
+    time.sleep(.1)
+    led(1)
+    time.sleep(.1)
+
+
 def Check_temperature():
     adc_value = sensor.read_u16()
     V = (3.3/65535) * adc_value
     Temperatuur = 27 - (V - 0.706)/0.001721
     return round(Temperatuur, 1)
   
+
+# Wait for data from the connection
 while True:
-    Temperatuur = Check_temperature()
-    print(Temperatuur)
-    time.sleep(1)
+    data = input()
+
+    print("Received '" + data + "'.")
+    if data == '0':
+        print("Turning led off.")
+        led(0)
+    elif data == '1':
+        print("Turning led on.")
+        led(1)
+        
+    elif data == '2':
+        print(Check_temperature())
+    else:
+        print("Unknown command.")
