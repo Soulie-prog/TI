@@ -1,0 +1,16 @@
+import machine
+import time
+
+adcpin = 4
+sensor = machine.ADC(adcpin)
+  
+def Check_temperature():
+    adc_value = sensor.read_u16()
+    V = (3.3/65535) * adc_value
+    Temperatuur = 27 - (V - 0.706)/0.001721
+    return round(Temperatuur, 1)
+  
+while True:
+    Temperatuur = Check_temperature()
+    print(Temperatuur)
+    time.sleep(1)
