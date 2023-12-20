@@ -21,7 +21,7 @@ def leds(value, delay_time):
 
 
 delay = 0.1
-while True:
+while True: # 1+2+8+32+128= 171
     leds(1, delay)
     leds(2, delay)
     leds(4, delay)
